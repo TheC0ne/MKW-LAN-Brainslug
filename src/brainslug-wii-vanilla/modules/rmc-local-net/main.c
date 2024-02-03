@@ -76,16 +76,31 @@ uint32_t array_yay_woo[] = {
 #endif
 
 static void _start_patches(void) {
+
+	// fix for le-code distributions
+	// check whether the first instruction of _start is the instruction mflr r21,
+	// and if so, correct the Arena High the Start of FST and the maximum FST size.
+	// very helpful reference for this topic https://wiibrew.org/wiki/Memory_map
+	if(*(uint32_t *)_start == 0x7ea802a6){
+		*(uint32_t *)0x80000034 = *(uint32_t *)0x80000034 + 8;		/* Arena High */
+		*(uint32_t *)0x80000038 = *(uint32_t *)0x80000038 + 8;		/* Start of FST */
+		*(uint32_t *)0x8000003c = 0x81800000 - *(uint32_t *)0x80000038;	/* Maximum FST Size */
+	}
+	
 	// force us to know ourselves
 	DWC_ConnectToGameServerAsync2[0x3B] = 0x48000100;
 	DWC_ConnectToGameServerAsync2[0x7E] = 0x38000001;
+	
 	// work out where dwc_gamedata is
 	dwc_gamedata_offset = ((int16_t *)&dwc_process_status_record)[0xb];
+	
 	// stop the error condition preventing all online processing.
 	// TODO: this is actually patching the method starting 800ccc68 so this may not port.
 	((uint32_t *)&dwc_unknown_800ccc38)[0xF] = 0x60000000;
+	
 	// prevent error 5 when sending packets
 	dwc_unknown_800d577c[0x203] = 0x48000014;
+	
 	// disconnect gracefully on state machine lockup in joins
 	void *menu_data = get_port_address(9);
 	((uint32_t *)&dwc_think)[0x44] = 0x3c600000 + RELOC_HA(menu_data);
