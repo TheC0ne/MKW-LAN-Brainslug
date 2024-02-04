@@ -19,6 +19,15 @@ static const uint32_t portAddresses[][4] = {
 	{ 0x805c11e0, 0x805cd5dc, 0x805cdd00, 0x805bbcc0 }, /* BMG_Print */																		/*14*/
 	{ 0x80831bcc, 0x8085084c, 0x808511e0, 0x8083f5a0 }, /* On Mario Kart Channel pressed (not a method start) */							/*15*/
 	{ 0x80839a2c, 0x8085ab28, 0x8085b4bc, 0x8084987c }, /* On Check Rankings pressed (not a method start) */								/*16*/
+	{ 0x80539752, 0x8053E60E, 0x8053EC8E, 0x8052CCE6 }, /* 30 Seconds Time Limit Modifier [CLF78] */										/*17*/
+	{ 0x8051CF94, 0x80520D88, 0x80521408, 0x8050F42C }, /* No Disconnect [Bully] */															/*18*/
+	{ 0x80539758, 0x8053E614, 0x8053EC94, 0x8052CCEC }, /* No Disconnect [Bully] */															/*19*/
+	{ 0x80539A30, 0x8053E8EC, 0x8053EF6C, 0x8052CFC4 }, /* No Disconnect [Bully] */															/*20*/
+	{ 0x80539B78, 0x8053EA34, 0x8053F0B4, 0x8052D10C }, /* No Disconnect [Bully] */															/*21*/
+	{ 0x80539BE8, 0x8053EAA4, 0x8053F124, 0x8052D17C }, /* No Disconnect [Bully] */															/*22*/
+	{ 0x805BAD14, 0x805C35FC, 0x805C3C7C, 0x805B1CE0 }, /* Freeze Selection Timer [Bully] */												/*23*/
+	{ 0x80539F3C, 0x8053EDF8, 0x8053F478, 0x8052D4D0 }, /* Disconnect at Will [CLF78] */													/*24*/
+	{ 0x805DD37C, 0x806013D0, 0x80601C5C, 0x805F007C }, /* Extend Waiting For Others [dirtyfrikandel] */									/*25*/
 };
 
 void *get_port_address(int index) {

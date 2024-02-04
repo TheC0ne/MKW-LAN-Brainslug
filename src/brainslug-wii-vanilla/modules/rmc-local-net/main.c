@@ -75,6 +75,11 @@ uint32_t array_yay_woo[] = {
 	POKE_BL(0x80009918, array_yay_woo);
 #endif
 
+uint32_t Extend_Waiting_For_Others[] = {
+0x38000001, 0x90030020,
+0x4E800020
+};
+
 static void _start_patches(void) {
 
 	// fix for le-code distributions
@@ -171,6 +176,25 @@ static int OSLink_patches(void* location1, void* location2) {
 
 	/* Disable check rankings */
 	*(uint32_t *)get_port_address(16) = 0x48000724;
+
+	/* 30 Seconds Time Limit Modifier [CLF78] */
+	*(uint16_t *)get_port_address(17) = 0x00002A30;
+	
+	/* No Disconnect [Bully] */
+	*(uint32_t *)get_port_address(18) = 0x38000000;
+	*(uint32_t *)get_port_address(19) = 0x38000000;
+	*(uint32_t *)get_port_address(20) = 0x38000000;
+	*(uint32_t *)get_port_address(21) = 0x38000000;
+	*(uint32_t *)get_port_address(22) = 0x38000000;
+	
+	/* Freeze Selection Timer [Bully] */
+	*(uint32_t *)get_port_address(23) = 0x60000000;
+	
+	/* Disconnect at Will [CLF78] */
+	*(uint32_t *)get_port_address(24) = 0x4800000C;	
+	
+	/* Extend Waiting For Others [dirtyfrikandel] */
+	POKE_B(get_port_address(25),Extend_Waiting_For_Others);
 
 	return ret;
 }
